@@ -2,9 +2,12 @@
   "name": "rpg-back",
   "version": "1.0.0",
   "main": "index.js",
+  "compilerOptions": {
+		"outDir": "dist"
+	},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node server.ts "
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
