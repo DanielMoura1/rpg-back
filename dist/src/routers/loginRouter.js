@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const teste_1 = require("../controllers/teste");
+const schemaCadatro_1 = require("../schemas/schemaCadatro");
+const validarSchema_1 = require("./../middlewares/validarSchema");
+const authRouter = (0, express_1.Router)();
+authRouter.get('/selecao', teste_1.selecao);
+authRouter.get('/criarUser', teste_1.createProvas);
+authRouter.get('/inimigos', teste_1.inimigo);
+authRouter.post('/cadastro', (0, validarSchema_1.validateSchemaMiddleware)(schemaCadatro_1.cadastroSchema), teste_1.cadastro);
+authRouter.post('/inimigos', teste_1.postTeste);
+authRouter.post('/login', teste_1.login);
+authRouter.post('/adicionar', teste_1.adicionar);
+exports.default = authRouter;

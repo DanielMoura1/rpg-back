@@ -1,15 +1,13 @@
 {
   "name": "rpg-back",
   "version": "1.0.0",
-  "main": "index.js",
-  "compilerOptions": {
-		"outDir": "dist"
-	},
+  "main": "index.js","compilerOptions": {
+    "outDir": "dist"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "node dist/server.js"
-    
+    "build": "tsc && npx prisma generate && npx prisma migrate deploy",
+    "start": "node dist/server.js "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +20,7 @@
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.2",
+    "node": "^18.10.0",
     "start": "^5.1.0",
     "uuid": "^9.0.0"
   },
@@ -36,5 +35,13 @@
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielMoura1/rpg-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DanielMoura1/rpg-back/issues"
+  },
+  "homepage": "https://github.com/DanielMoura1/rpg-back#readme"
 }
