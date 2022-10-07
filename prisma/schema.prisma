@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model deck {
+  id      Int     @id @default(autoincrement())
+  idUser  Int
+  vida    Int
+  maxVida Int
+  nome    String
+  foto    String
+  idCard  Int
+  poder   Int
+  card    card    @relation(fields: [idCard], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario usuario @relation(fields: [idUser], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model inimigo {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  foto       String
+  poder      Int
+  vida       Int
+  fase       Int
+  idUsuario  Int
+  idInimigos Int
+  inimigos   inimigos @relation(fields: [idInimigos], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuario    usuario  @relation(fields: [idUsuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model card {
+  id    Int    @id @default(autoincrement())
+  foto  String
+  poder Int
+  vida  Int
+  nome  String
+  deck  deck[]
+}
+
+model usuario {
+  id      Int       @id @default(autoincrement())
+  token   String
+  senha   String
+  email   String
+  foto    String
+  nome    String
+  fase    Int
+  deck    deck[]
+  inimigo inimigo[]
+}
+
+model inimigos {
+  id      Int       @id @default(autoincrement())
+  nome    String
+  foto    String
+  poder   Int
+  vida    Int
+  fase    Int
+  inimigo inimigo[]
+}
