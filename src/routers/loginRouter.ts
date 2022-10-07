@@ -19,5 +19,6 @@ authRouter.post('/cadastro',validateSchemaMiddleware(cadastroSchema), cadastro);
 authRouter.post('/inimigos', postTeste);
 authRouter.post('/login', login);
 authRouter.post('/adicionar', adicionar);
+
 export default authRouter;
 
