@@ -1,23 +1,22 @@
 import { prisma } from '../config/database';
 
-export async function varificar(credenciais:any,usuario:any,cartas:any,ids:any) {
-  
+export async function varificar(credenciais:any,usuario:any,ids:any) {
+    // ataque do jogador
     console.log('pq?')
-    //console.log(credenciais.length)
     for(let i=0;i<credenciais.golpe.length;i++){
         console.log('for')
    
-          console.log('oi')
+          //console.log('oi')
           const vida= await prisma.inimigo.findMany({ where: {id:  credenciais.golpe[i].inimigoId } })
           const py= await prisma.deck.findMany({ where: {id:  credenciais.golpe[i].loteId } })
-          console.log(credenciais.golpe[i])
+          //console.log(credenciais.golpe[i])
           const random = Math.floor(Math.random()*ids.length)
-          console.log(ids[random])
+          //console.log(ids[random])
           if(credenciais.golpe[i].loteId ===0){
 
           }else if(py[0].poder>=0 &&  credenciais.golpe[i].inimigoId !==0){
-            console.log('nao cura')
-            console.log('..............................................................................................................................................')
+            //console.log('nao cura')
+           // console.log('..............................................................................................................................................')
           await prisma.inimigo.update({
               where: {
               id: credenciais.golpe[i].inimigoId
@@ -30,10 +29,10 @@ export async function varificar(credenciais:any,usuario:any,cartas:any,ids:any) 
           const vida2= await prisma.deck.findMany({ where: {id:  ids[random] } })
           console.log('cura')
           console.log('..............................................................................................................................................')
-          console.log(vida2[0].vida- py[0].poder)
-          console.log(vida2[0].vida)
-          console.log(vida2[0].nome)
-          console.log( ids[random])
+         // console.log(vida2[0].vida- py[0].poder)
+          //console.log(vida2[0].vida)
+          //console.log(vida2[0].nome)
+          //console.log( ids[random])
           await prisma.deck.update({
             where: {
             id: ids[random]
@@ -42,16 +41,28 @@ export async function varificar(credenciais:any,usuario:any,cartas:any,ids:any) 
               vida:vida2[0].vida- py[0].poder
             }
           })
-        
+          for(let j=0;j<credenciais.golpe.length;j++){
+            if(ids[random]===credenciais.golpe[j].loteId){
+              console.log(':?')
+              credenciais.golpe[j].placarDeCura=credenciais.golpe[j].placarDeCura-py[0].poder
+            }
+          }
       }
   }
+
+  let vidacurada=[]
+  //respota
+  for(let t=0;t<credenciais.golpe.length;t++){
+    vidacurada.push(credenciais.golpe[t].placarDeCura)
+  }
+ 
   for(let i=0;i<credenciais.golpe.length;i++){
-    console.log('for delete')
+    //console.log('for delete')
     if(credenciais.golpe[i].inimigoId!==0){
-      console.log('oi')
+      //console.log('oi')
       const vida= await prisma.inimigo.findMany({ where: {id:  credenciais.golpe[i].inimigoId } })
      if(vida[0].vida<=0){
-      console.log('deletado')
+      //console.log('deletado')
       await prisma.inimigo.delete({
         where: {
           id: vida[0].id,
@@ -62,9 +73,11 @@ export async function varificar(credenciais:any,usuario:any,cartas:any,ids:any) 
 
   }
 }
+console.log(':?5')
 const inimigos= await prisma.inimigos.findMany()
 const vidas= await prisma.inimigo.findMany({ where: {idUsuario: usuario.id  } })
 const vidasInimigos= await prisma.inimigo.findMany({ where: {idUsuario: usuario.id, fase:usuario.fase  } })
+console.log(':?5')
 if(vidasInimigos.length===0){
   await prisma.usuario.update({
     where: {
@@ -75,7 +88,9 @@ if(vidasInimigos.length===0){
     }
   })
   }
+  console.log(':?6')
 if(vidas.length===0){
+  console.log(':?7')
 for(let i =0;i< inimigos.length;i++){
   await prisma.inimigo.create({ data:
     {
@@ -89,7 +104,7 @@ for(let i =0;i< inimigos.length;i++){
     }
   });
 }
-
+console.log(':?8')
 await prisma.usuario.update({
   where: {
   id: usuario.id
@@ -98,6 +113,8 @@ await prisma.usuario.update({
     fase:1
   }
 })
-
+console.log(':?9')
 }
+console.log('return')
+return vidacurada
 }
