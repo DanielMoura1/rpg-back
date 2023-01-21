@@ -12,7 +12,12 @@ import {
     adicionar,
     selecao
     } from '../controllers/deck';
+import {
+    perfil,
+    MudarFoto
+    } from '../controllers/perfil';
 import {  cadastroSchema} from '../schemas/schemaCadatro';
+
 import { validateSchemaMiddleware } from './../middlewares/validarSchema';
 const authRouter = Router();
 
@@ -23,6 +28,7 @@ authRouter.post('/cadastro',validateSchemaMiddleware(cadastroSchema), cadastro);
 authRouter.post('/inimigos', postInimigos);
 authRouter.post('/login', login);
 authRouter.post('/adicionar', adicionar);
-
+authRouter.get('/perfil', perfil);
+authRouter.put('/mudarfoto',  MudarFoto);
 export default authRouter;
 
