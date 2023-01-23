@@ -10,12 +10,16 @@ import {
 import {
     BuscarSeuDeck,
     adicionar,
-    selecao
+    selecao,
+    getLoja
     } from '../controllers/deck';
 import {
     perfil,
     MudarFoto
     } from '../controllers/perfil';
+import {
+    rank
+    } from '../controllers/ranking';
 import {  cadastroSchema} from '../schemas/schemaCadatro';
 
 import { validateSchemaMiddleware } from './../middlewares/validarSchema';
@@ -30,5 +34,7 @@ authRouter.post('/login', login);
 authRouter.post('/adicionar', adicionar);
 authRouter.get('/perfil', perfil);
 authRouter.put('/mudarfoto',  MudarFoto);
+authRouter.get('/rank',  rank);
+authRouter.get('/loja',  getLoja);
 export default authRouter;
 

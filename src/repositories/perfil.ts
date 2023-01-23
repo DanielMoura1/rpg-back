@@ -3,6 +3,9 @@ async function perfil(token:any) {
     return await prisma.usuario.findMany({ 
         where: {
           token: token
+        },
+        include:{
+          vitorias:true
         }
     })
 }

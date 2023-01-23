@@ -49,6 +49,9 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
           const usuario= await prisma.usuario.findMany({ 
             where: {
               token: token
+            },
+            include:{
+              vitorias:true
             }
           })
           if(usuario.length===0){
@@ -65,7 +68,7 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
           if(ids.length===0){
             return res.send(body.golpe)
           }
-          const vidacurada =await teste.varificar(body,usuario[0],ids)
+          const vidacurada =await teste.varificar(body,usuario[0],ids,usuario[0].vitorias[0].id,usuario[0].vitorias[0].vitorias)
           //return
           console.log(vidacurada)
           const inimigo =await  prisma.inimigo.findMany({ where: {idUsuario:usuario[0].id,
@@ -114,21 +117,33 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
             console.log('vidaperdida')
             console.log(body)
             console.log(vidaperdida)
-            const deck2 =await  prisma.deck.findMany({ where: {idUser: usuario[0].id } })
-            for(let i=0;i<deck2.length;i++){
-              console.log('for delete')
+           
+          }
+          const deck2 =await  prisma.deck.findMany({ where: {idUser: usuario[0].id } })
+          for(let i=0;i<deck2.length;i++){
+            console.log('for delete')
+           
+              console.log('oi')
              
-                console.log('oi')
-               
-               if(deck2[i].vida<=0){
-                console.log('deletado')
-                const deleteUser = await prisma.deck.delete({
-                  where: {
-                    id: deck2[i].id,
-                  },
-                })
-              }
+             if(deck2[i].vida<=0){
+              console.log('deletado')
+              const deleteUser = await prisma.deck.delete({
+                where: {
+                  id: deck2[i].id,
+                },
+              })
             }
+          }
+          const deck3 =await  prisma.deck.findMany({ where: {idUser: usuario[0].id } })
+          if(deck3.length===0){
+            await prisma.vitorias.update({
+              where: {
+              id: usuario[0].vitorias[0].id
+              },
+              data: {
+                vitorias:0
+              }
+            })
           }
           console.log('batata')
           res.send(body.golpe);

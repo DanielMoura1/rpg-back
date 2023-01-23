@@ -8,6 +8,9 @@ import deckRepositories from '../repositories/deck';
 export async function getCard() {
     return await deckRepositories.getCard()
 }
+export async function getloja(token:any) {
+    return await deckRepositories.getLoja(token)
+}
 export async function getAdicionar(token:any) {
     return await deckRepositories.getAdicionar(token);
 }
@@ -24,6 +27,7 @@ export default {
     getCard,
     getAdicionar,
     adicionar,
-    BuscarSeuDeck
+    BuscarSeuDeck,
+    getloja
 };
   

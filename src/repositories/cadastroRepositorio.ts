@@ -29,6 +29,12 @@ async function CriarInimigo(id:number,poder:number,vida:number,foto:string,inimi
         fase:fase
       }});
 }
+async function CriarVitoria(id:any) {
+  return  await prisma.vitorias.create({ data:{
+      vitorias:0,
+      usuarioId:id
+    }});
+}
 async function usuarioUpdate(id:number,token:string) {
     return await prisma.usuario.update({
         where: {
@@ -45,5 +51,6 @@ export default {
     getUsuario,
     inimigos,
     CriarInimigo,
-    usuarioUpdate
+    usuarioUpdate,
+    CriarVitoria
 };

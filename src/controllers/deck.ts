@@ -8,8 +8,13 @@ import deckService from '../service/deck';
 export async function selecao(req: Request, res: Response) {
     const cards= await deckService.getCard()
     res.send(cards);
-  }
-  
+}
+export async function getLoja(req: Request, res: Response) {
+  const { authorization } = req.headers;
+  const token = authorization?.replace('Bearer ', '');
+  const cards= await deckService.getloja(token)
+  res.send(cards);
+}
 export async function adicionar(req: Request, res: Response) { 
     const body = req.body;
     try{

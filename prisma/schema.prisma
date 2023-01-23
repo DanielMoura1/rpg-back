@@ -43,15 +43,16 @@ model card {
 }
 
 model usuario {
-  id      Int       @id @default(autoincrement())
-  token   String
-  senha   String
-  email   String
-  foto    String
-  nome    String
-  fase    Int
-  deck    deck[]
-  inimigo inimigo[]
+  id       Int        @id @default(autoincrement())
+  token    String
+  senha    String
+  email    String
+  foto     String
+  nome     String
+  fase     Int
+  deck     deck[]
+  inimigo  inimigo[]
+  vitorias vitorias[]
 }
 
 model inimigos {
@@ -62,4 +63,19 @@ model inimigos {
   vida    Int
   fase    Int
   inimigo inimigo[]
+}
+
+model vitorias {
+  id        Int     @id @default(autoincrement())
+  vitorias  Int
+  usuarioId Int
+  usuario   usuario @relation(fields: [usuarioId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ranking {
+  id        Int    @id @default(autoincrement())
+  ranking   Int
+  usuarioId Int
+  nome      String
+  foto      String
 }

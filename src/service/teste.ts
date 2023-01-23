@@ -1,6 +1,6 @@
 import { prisma } from '../config/database';
 
-export async function varificar(credenciais:any,usuario:any,ids:any) {
+export async function varificar(credenciais:any,usuario:any,ids:any,vit:any,vitn:any) {
     // ataque do jogador
     console.log('pq?')
     for(let i=0;i<credenciais.golpe.length;i++){
@@ -87,10 +87,41 @@ if(vidasInimigos.length===0){
       fase:(usuario.fase+1)
     }
   })
+ 
   }
+  
+  
   console.log(':?6')
 if(vidas.length===0){
   console.log(':?7')
+  await prisma.vitorias.update({
+    where: {
+    id: vit
+    },
+    data: {
+      vitorias:(vitn+1)
+    }
+  })
+  const rank= await prisma.ranking.findMany({})
+  const nota= await prisma.vitorias.findMany({
+    where: {
+      usuarioId:usuario.id
+    }
+  })
+  rank[0].ranking
+  if(nota[0].vitorias>rank[0].ranking){
+    await prisma.ranking.update({
+      where: {
+      id: rank[0].id
+      },
+      data: {
+        ranking:nota[0].vitorias,
+        usuarioId:nota[0].id,
+        nome:usuario.nome,
+        foto:usuario.foto
+      }
+    })
+  }
 for(let i =0;i< inimigos.length;i++){
   await prisma.inimigo.create({ data:
     {

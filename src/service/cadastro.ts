@@ -9,8 +9,11 @@ export async function buscarEmail(Bemail:string) {
 }
 export async function cadastro(Bemail:string,Bsenha:string,Bnome:string,token:string) { 
   const senha =bcrypt.hashSync(Bsenha, 5);
+          console.log('ok')
           await cadastroRepositories.criarUsuario(token,senha,Bemail,foto,Bnome);
+          console.log('ok2')
           const usuario= await cadastroRepositories.getUsuario(Bemail);
+          console.log('ok3')
           const add=[
             {
               idUsuario:usuario[0].id,
@@ -40,10 +43,13 @@ export async function cadastro(Bemail:string,Bsenha:string,Bnome:string,token:st
             }
           ]
           const inimigos= await cadastroRepositories.inimigos()
+          console.log('ok4')
           for(let i=0;i<inimigos.length;i++){
             await cadastroRepositories.CriarInimigo(usuario[0].id,inimigos[i].poder,inimigos[i].vida,inimigos[i].foto, inimigos[i].id, inimigos[i].nome, inimigos[i].fase);
-            
           }
+          console.log('ok5')
+          await cadastroRepositories.CriarVitoria(usuario[0].id)
+          console.log('ok6')
 }
 export async function loginGetUsuario(email:string) { 
   return await cadastroRepositories.getUsuario(email);

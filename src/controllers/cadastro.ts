@@ -13,6 +13,7 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
           const token =  uuid();
           const email= await cadastroService.buscarEmail(body.email);
           if(email.length>0){
+            console.log(email)
             console.log('erro')
             return res.status(500).send('email invalido')
           }

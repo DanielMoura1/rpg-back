@@ -3,6 +3,32 @@ import { prisma } from '../config/database';
 async function getCard() {
     return await prisma.card.findMany()
 }
+async function getLoja(token:any) {
+    const usuario= await prisma.usuario.findMany({
+        where :{
+            token
+        }
+    })
+    const res =[]
+    const deck =await prisma.deck.findMany({
+        where :{
+            idUser:usuario[0].id
+        }
+    })
+    const card= await prisma.card.findMany()
+    for(let i=0;i<card.length;i++){
+        let ok='ok'
+        for(let j=0;j<deck.length;j++){
+            if(deck[j].nome===card[i].nome){
+                ok='nao'
+            }
+        }
+        if(ok==='ok'){
+            res.push(card[i])
+        }
+    }
+    return res
+}
 async function getAdicionar(token:any) {
     return await prisma.usuario.findMany({ 
         where: {
@@ -40,5 +66,6 @@ export default {
     getAdicionar,
     criarDeck,
     BuscarUsuario,
-    BuscarSeuDeck
+    BuscarSeuDeck,
+    getLoja
 };
