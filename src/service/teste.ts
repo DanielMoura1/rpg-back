@@ -87,6 +87,14 @@ if(vidasInimigos.length===0){
       fase:(usuario.fase+1)
     }
   })
+  await prisma.ouro.update({
+    where: {
+    id: usuario.ouro[0].id
+    },
+    data: {
+      ouro:(usuario.ouro[0].ouro+50)
+    }
+  })
  
   }
   
@@ -102,6 +110,7 @@ if(vidas.length===0){
       vitorias:(vitn+1)
     }
   })
+ 
   const rank= await prisma.ranking.findMany({})
   const nota= await prisma.vitorias.findMany({
     where: {

@@ -5,7 +5,8 @@ async function perfil(token:any) {
           token: token
         },
         include:{
-          vitorias:true
+          vitorias:true,
+          ouro:true
         }
     })
 }

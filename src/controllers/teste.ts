@@ -51,8 +51,10 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
               token: token
             },
             include:{
-              vitorias:true
-            }
+              vitorias:true,
+              ouro:true
+            },
+            
           })
           if(usuario.length===0){
             return res.send(body.golpe)

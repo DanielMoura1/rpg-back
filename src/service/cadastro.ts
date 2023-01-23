@@ -50,6 +50,7 @@ export async function cadastro(Bemail:string,Bsenha:string,Bnome:string,token:st
           console.log('ok5')
           await cadastroRepositories.CriarVitoria(usuario[0].id)
           console.log('ok6')
+          await cadastroRepositories.CriarOuro(usuario[0].id)
 }
 export async function loginGetUsuario(email:string) { 
   return await cadastroRepositories.getUsuario(email);
