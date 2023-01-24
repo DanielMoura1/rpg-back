@@ -20,8 +20,8 @@ async function adicionar(body:any,id:number) {
         }
 }
 
-async function comprar(body:any,id:number,dinheiro:number,idOuro:number) {
-    const ouro= await deckRepositories.buscarOuro(id)
+async function comprar(body:any,id:number,dinheiro:number,idOuro:number,idCard:any) {
+    const ouro= await deckRepositories.buscarOuro(idCard)
     if(dinheiro>= ouro[0].ouroCard[0].ouro){
         await deckRepositories.criarDeck(body[0].poder,body[0].vida,body[0].nome,body[0].foto,id,body[0].id);
         await deckRepositories.ouro(idOuro,dinheiro,ouro[0].ouroCard[0].ouro)

@@ -33,7 +33,7 @@ export async function comprar(req: Request, res: Response) {
         const { authorization } = req.headers;
         const token = authorization?.replace('Bearer ', '');
         const usuario= await deckService.getAdicionar(token)
-        await deckService.comprar(body,usuario[0].id,usuario[0].ouro[0].ouro,usuario[0].ouro[0].id)
+        await deckService.comprar(body,usuario[0].id,usuario[0].ouro[0].ouro,usuario[0].ouro[0].id,body[0].id)
         res.status(201).send(token);
     }catch(error){
       res.status(500).send(error)

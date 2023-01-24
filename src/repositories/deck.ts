@@ -48,7 +48,7 @@ async function ouro(id:any,dinheiro:any,d:any) {
         where: {
           id
         },data :{
-            ouro :d-dinheiro
+            ouro :dinheiro-d
         }
     })
 }
