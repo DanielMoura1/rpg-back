@@ -11,7 +11,8 @@ import {
     BuscarSeuDeck,
     adicionar,
     selecao,
-    getLoja
+    getLoja,
+    comprar
     } from '../controllers/deck';
 import {
     perfil,
@@ -36,5 +37,6 @@ authRouter.get('/perfil', perfil);
 authRouter.put('/mudarfoto',  MudarFoto);
 authRouter.get('/rank',  rank);
 authRouter.get('/loja',  getLoja);
+authRouter.post('/loja', comprar);
 export default authRouter;
 

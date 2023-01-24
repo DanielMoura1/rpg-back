@@ -34,12 +34,13 @@ model inimigo {
 }
 
 model card {
-  id    Int    @id @default(autoincrement())
-  foto  String
-  poder Int
-  vida  Int
-  nome  String
-  deck  deck[]
+  id       Int        @id @default(autoincrement())
+  foto     String
+  poder    Int
+  vida     Int
+  nome     String
+  deck     deck[]
+  ouroCard ouroCard[]
 }
 
 model usuario {
@@ -86,4 +87,11 @@ model ouro {
   ouro      Int
   usuarioId Int
   usuario   usuario @relation(fields: [usuarioId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ouroCard {
+  id     Int  @id @default(autoincrement())
+  ouro   Int
+  cardId Int
+  card   card @relation(fields: [cardId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

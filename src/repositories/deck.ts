@@ -15,7 +15,12 @@ async function getLoja(token:any) {
             idUser:usuario[0].id
         }
     })
-    const card= await prisma.card.findMany()
+    const card= await prisma.card.findMany({
+        include:{
+            ouroCard:true
+        }
+    })
+    
     for(let i=0;i<card.length;i++){
         let ok='ok'
         for(let j=0;j<deck.length;j++){
@@ -33,6 +38,26 @@ async function getAdicionar(token:any) {
     return await prisma.usuario.findMany({ 
         where: {
           token: token
+        },include:{
+            ouro:true
+        }
+    })
+}
+async function ouro(id:any,dinheiro:any,d:any) {
+    return await prisma.ouro.update({ 
+        where: {
+          id
+        },data :{
+            ouro :d-dinheiro
+        }
+    })
+}
+async function buscarOuro(id:any) {
+    return await prisma.card.findMany({ 
+        where: {
+          id
+        },include:{
+            ouroCard:true
         }
     })
 }
@@ -67,5 +92,7 @@ export default {
     criarDeck,
     BuscarUsuario,
     BuscarSeuDeck,
-    getLoja
+    getLoja,
+    buscarOuro,
+    ouro
 };

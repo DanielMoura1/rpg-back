@@ -19,6 +19,16 @@ async function adicionar(body:any,id:number) {
             await deckRepositories.criarDeck(body[i].poder,body[i].vida,body[i].nome,body[i].foto,id,body[i].id);
         }
 }
+
+async function comprar(body:any,id:number,dinheiro:number,idOuro:number) {
+    const ouro= await deckRepositories.buscarOuro(id)
+    if(dinheiro>= ouro[0].ouroCard[0].ouro){
+        await deckRepositories.criarDeck(body[0].poder,body[0].vida,body[0].nome,body[0].foto,id,body[0].id);
+        await deckRepositories.ouro(idOuro,dinheiro,ouro[0].ouroCard[0].ouro)
+    }else{
+        console.log('else')
+    }
+}
 export async function BuscarSeuDeck(token:any) {
     const usuario= await deckRepositories.BuscarUsuario(token);
     return await deckRepositories.BuscarSeuDeck(usuario[0].id);
@@ -28,6 +38,7 @@ export default {
     getAdicionar,
     adicionar,
     BuscarSeuDeck,
-    getloja
+    getloja,
+    comprar
 };
   
