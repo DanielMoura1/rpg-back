@@ -27,7 +27,7 @@ function cadastro(req, res) {
             if (email.length > 0) {
                 console.log(email);
                 console.log('erro');
-                return res.status(500).send('email invalido');
+                return res.status(500).send('Email já em uso');
             }
             yield cadastro_1.default.cadastro(body.email, body.senha, body.nome, token);
             res.send(token);

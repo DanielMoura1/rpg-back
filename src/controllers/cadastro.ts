@@ -15,7 +15,7 @@ const foto ='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBYWFRgV
           if(email.length>0){
             console.log(email)
             console.log('erro')
-            return res.status(500).send('email invalido')
+            return res.status(500).send('Email já em uso')
           }
           await cadastroService.cadastro(body.email,body.senha,body.nome,token);
           res.send(token);
